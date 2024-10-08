@@ -1,10 +1,10 @@
 {
-  "name": "mushroom_api",
+  "name": "mushroom-api",
+  "author": "Naandalist",
   "scripts": {
     "dev": "bun run --hot src/index.ts",
     "start": "bun run src/index.ts"
   },
-  "author": "Naandalist",
   "dependencies": {
     "hono": "^4.6.3"
   },
