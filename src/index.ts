@@ -66,7 +66,7 @@ app.get("/api/mushrooms/:id", (c) => {
     return c.json({ error: "Mushroom not found" }, 404);
   }
 
-  return c.json({ status: 200, message: "success", mushroom });
+  return c.json({ status: 200, message: "success", data: mushroom });
 });
 
 export default app;
