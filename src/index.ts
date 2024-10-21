@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
-import dataMushrooms from "./data/mushrooms.json";
+import { testConnection, dbQuery, closePool } from "./config/db";
 
 const app = new Hono();
 
@@ -22,51 +22,96 @@ app.get("/", (c) => {
 });
 
 // Get all mushrooms
-app.get("/api/mushrooms", (c) => {
-  const mushrooms = dataMushrooms.map(({ longDescription, ...rest }) => rest);
-  return c.json({ status: 200, message: "success", data: mushrooms });
+app.get("/api/mushrooms", async (c) => {
+  try {
+    const result = await dbQuery(
+      'SELECT id, name, "commonName" FROM mushrooms',
+      []
+    );
+    return c.json({ status: 200, message: "success", data: result.rows });
+  } catch (error) {
+    console.error("Database query error:", error);
+    return c.json(
+      { status: 500, message: "Internal server error", data: [] },
+      500
+    );
+  }
 });
 
 // Search mushrooms by name or common name
-app.get("/api/mushrooms/search", (c) => {
-  const query = c.req.query("q");
+app.get("/api/mushrooms/search", async (c) => {
+  const searchQuery = c.req.query("q");
 
-  console.log("query: ", query);
-
-  if (!query) {
+  if (!searchQuery) {
     return c.json(
-      { status: 404, message: "Search query is required", data: [] },
+      { status: 400, message: "Search query is required", data: [] },
       400
     );
   }
 
-  const lowercaseQuery = query.toLowerCase();
-  const mushrooms = dataMushrooms.filter(
-    (item) =>
-      item.name.toLowerCase().includes(lowercaseQuery) ||
-      item.commonName.toLowerCase().includes(lowercaseQuery)
-  );
+  try {
+    const result = await dbQuery(
+      'SELECT * FROM mushrooms WHERE LOWER(name) LIKE $1 OR LOWER("commonName") LIKE $1',
+      [`%${searchQuery.toLowerCase()}%`]
+    );
 
-  if (mushrooms.length === 0) {
+    if (result.rows.length === 0) {
+      return c.json(
+        { status: 200, message: "No mushrooms found", data: [] },
+        200
+      );
+    }
+
+    return c.json({ status: 200, message: "success", data: result.rows });
+  } catch (error) {
+    console.error("Database query error:", error);
     return c.json(
-      { status: 200, message: "No mushrooms found", data: [] },
-      200
+      { status: 500, message: "Internal server error", data: [] },
+      500
     );
   }
-
-  return c.json({ status: 200, message: "success", data: mushrooms });
 });
 
 // Get one mushroom by ID
-app.get("/api/mushrooms/:id", (c) => {
+app.get("/api/mushrooms/:id", async (c) => {
   const id = c.req.param("id");
-  const mushroom = dataMushrooms.find((item) => item.id === id);
 
-  if (!mushroom) {
-    return c.json({ error: "Mushroom not found" }, 404);
+  try {
+    const result = await dbQuery("SELECT * FROM mushrooms WHERE id = $1", [id]);
+
+    if (result.rows.length === 0) {
+      return c.json(
+        { status: 404, message: "Mushroom not found", data: null },
+        404
+      );
+    }
+
+    return c.json({ status: 200, message: "success", data: result.rows[0] });
+  } catch (error) {
+    console.error("Database query error:", error);
+    return c.json(
+      { status: 500, message: "Internal server error", data: null },
+      500
+    );
   }
-
-  return c.json({ status: 200, message: "success", data: mushroom });
 });
+
+async function startServer() {
+  try {
+    await testConnection();
+  } catch (error) {
+    console.error("Failed to connect to the database. Exiting.", error);
+    process.exit(1);
+  }
+}
+
+// Proper shutdown handling
+process.on("SIGINT", async () => {
+  console.log("Shutting down gracefully");
+  await closePool();
+  process.exit(0);
+});
+
+startServer();
 
 export default app;
