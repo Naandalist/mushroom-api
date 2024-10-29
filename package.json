@@ -3,14 +3,21 @@
   "author": "Naandalist",
   "scripts": {
     "dev": "bun run --hot src/index.ts",
-    "start": "bun run src/index.ts"
+    "start": "bun run src/index.ts",
+    "db:studio": "bunx prisma studio",
+    "db:seed": "bun run ./src/seeder/index.ts",
+    "db:migrate": "bunx prisma migrate dev",
+    "db:reset": "bunx prisma migrate reset",
+    "db:generate": "bunx prisma generate",
+    "db:setup": "bun run db:migrate && bun run db:generate && bun run db:seed"
   },
   "dependencies": {
+    "@prisma/client": "^5.21.1",
     "hono": "^4.6.3",
-    "pg": "^8.13.0"
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/pg": "^8.11.10"
+    "prisma": "^5.21.1"
   }
 }

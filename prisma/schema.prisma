@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Mushroom {
+  id                 String            @id @default(cuid())
+  name               String            @db.VarChar(100)
+  commonName         String            @map("common_name") @db.VarChar(100)
+  familyId           String            @map("family_id")
+  edibilityId        String            @map("edibility_id")
+  isEdible           Boolean           @map("is_edible")
+  poisonousnessLevel Int               @map("poisonousness_level")
+  averageHeight      Int               @map("average_height")
+  shortDescription   String            @map("short_description") @db.VarChar(255)
+  imageUrl           String            @map("image_url") @db.VarChar(255)
+  details            MushroomDetail?
+  edibilityCategory  EdibilityCategory @relation(fields: [edibilityId], references: [id])
+  family             MushroomFamily    @relation(fields: [familyId], references: [id])
+
+  @@map("mushrooms")
+}
+
+model MushroomDetail {
+  id              String   @id @default(cuid())
+  mushroomId      String   @unique @map("mushroom_id")
+  longDescription String   @map("long_description")
+  habitat         String   @db.VarChar(100)
+  season          String   @db.VarChar(50)
+  funFact         String   @map("fun_fact") @db.VarChar(255)
+  mushroom        Mushroom @relation(fields: [mushroomId], references: [id])
+
+  @@map("mushroom_details")
+}
+
+model MushroomFamily {
+  id         String     @id @default(cuid())
+  familyName String     @map("family_name") @db.VarChar(100)
+  mushrooms  Mushroom[]
+
+  @@map("mushroom_families")
+}
+
+model EdibilityCategory {
+  id          String     @id @default(cuid())
+  category    String     @db.VarChar(50)
+  description String
+  mushrooms   Mushroom[]
+
+  @@map("edibility_categories")
+}

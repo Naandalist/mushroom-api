@@ -1,6 +1,6 @@
 [
   {
-    "id": "1",
+    "id": "clh1234abcdef0123456789aa",
     "name": "Amanita muscaria",
     "commonName": "Fly Agaric",
     "family": "Amanitaceae",
@@ -16,7 +16,7 @@
     "imageUrl": "https://en.wikipedia.org/wiki/Amanita_muscaria#/media/File:Amanita_muscaria_3_vliegenzwammen_op_rij.jpg"
   },
   {
-    "id": "2",
+    "id": "clh1234abcdef0123456789bb",
     "name": "Cantharellus cibarius",
     "commonName": "Chanterelle",
     "family": "Cantharellaceae",
@@ -32,7 +32,7 @@
     "imageUrl": "https://en.wikipedia.org/wiki/Cantharellus_cibarius#/media/File:Chanterelle_Cantharellus_cibarius.jpg"
   },
   {
-    "id": "3",
+    "id": "clh1234abcdef0123456789cc",
     "name": "Amanita phalloides",
     "commonName": "Death Cap",
     "family": "Amanitaceae",
@@ -48,7 +48,7 @@
     "imageUrl": "https://en.wikipedia.org/wiki/Amanita_phalloides#/media/File:Amanita_phalloides_1.JPG"
   },
   {
-    "id": "4",
+    "id": "clh1234abcdef0123456789dd",
     "name": "Boletus edulis",
     "commonName": "Porcini",
     "family": "Boletaceae",
@@ -64,7 +64,7 @@
     "imageUrl": "https://en.wikipedia.org/wiki/Boletus_edulis#/media/File:Boletus_edulis_IT.jpg"
   },
   {
-    "id": "5",
+    "id": "clh1234abcdef0123456789ee",
     "name": "Galerina marginata",
     "commonName": "Funeral Bell",
     "family": "Hymenogastraceae",
@@ -80,7 +80,7 @@
     "imageUrl": "https://en.wikipedia.org/wiki/Galerina_marginata#/media/File:Galerina_marginata_Point_Reyes.jpg"
   },
   {
-    "id": "6",
+    "id": "clh1234abcdef0123456789ff",
     "name": "Morchella esculenta",
     "commonName": "Common Morel",
     "family": "Morchellaceae",
@@ -96,7 +96,7 @@
     "imageUrl": "https://en.wikipedia.org/wiki/Morchella_esculenta#/media/File:Morchella_esculenta_-_DE_-_TH_-_2013-05-01_-_01.JPG"
   },
   {
-    "id": "7",
+    "id": "clh1234abcdef0123456789gg",
     "name": "Pleurotus ostreatus",
     "commonName": "Oyster Mushroom",
     "family": "Pleurotaceae",
@@ -112,7 +112,7 @@
     "imageUrl": "https://en.wikipedia.org/wiki/Pleurotus_ostreatus#/media/File:Pleurotus_ostreatus_JPG7.jpg"
   },
   {
-    "id": "8",
+    "id": "clh1234abcdef0123456789hh",
     "name": "Amanita bisporigera",
     "commonName": "Destroying Angel",
     "family": "Amanitaceae",
@@ -128,7 +128,7 @@
     "imageUrl": "https://en.wikipedia.org/wiki/Amanita_bisporigera#/media/File:Amanita_bisporigera_17932.jpg"
   },
   {
-    "id": "9",
+    "id": "clh1234abcdef0123456789ii",
     "name": "Lentinula edodes",
     "commonName": "Shiitake",
     "family": "Omphalotaceae",
@@ -144,7 +144,7 @@
     "imageUrl": "https://en.wikipedia.org/wiki/Shiitake#/media/File:Shiitakegrowing.jpg"
   },
   {
-    "id": "10",
+    "id": "clh1234abcdef0123456789jj",
     "name": "Gyromitra esculenta",
     "commonName": "False Morel",
     "family": "Discinaceae",
